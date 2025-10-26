@@ -1,0 +1,71 @@
+erDiagram
+    User ||--o{ Post : "creates"
+    User ||--o{ Comment : "writes"
+    User ||--o{ Like : "gives"
+    User ||--o{ Follows : "is follower"
+    User ||--o{ Follows : "is following"
+    User ||--o{ Notification : "receives"
+    User ||--o{ Notification : "creates"
+    
+    Post ||--o{ Comment : "has"
+    Post ||--o{ Like : "receives"
+    Post ||--o{ Notification : "triggers"
+    
+    Comment ||--o{ Notification : "triggers"
+    
+    User {
+        String id PK
+        String email UK
+        String username UK
+        String clerkId UK
+        String name
+        String bio
+        String image
+        String location
+        String website
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    
+    Post {
+        String id PK
+        String title
+        String content
+        String image
+        String authorId FK
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    
+    Comment {
+        String id PK
+        String content
+        String authorId FK
+        String postId FK
+        DateTime createdAt
+        DateTime updatedAt
+    }
+    
+    Like {
+        String id PK
+        String userId FK
+        String postId FK
+        DateTime createdAt
+    }
+    
+    Follows {
+        String followerId PK_FK
+        String followingId PK_FK
+        DateTime createdAt
+    }
+    
+    Notification {
+        String id PK
+        NotificationType type
+        String receiverId FK
+        String creatorId FK
+        String postId FK
+        String commentId FK
+        DateTime createdAt
+        Boolean isRead
+    }
